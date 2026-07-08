@@ -14,7 +14,7 @@ This website was **written** by a **human**.
 
 <span class="underline text-orange-500"><b>Orange links</b> lead to <b>other</b> websites.</span>
 
-(i) Info icons mean a comparison or analogy is being used
+(i) Info icons mean a comparison, analogy, or point or reference is being used to explain
 
 (w) Warning icons means there's a common point of confusion
 

@@ -1,8 +1,10 @@
 0
 # What's a PC?
-PC stands for **[Personal Computer](https://en.wikipedia.org/wiki/PC)**, but **not all** personal computers **are PCs**.
 
-This guide **assumes** the **colloquial defintion** of a **PC**.
+PC stands for **[Personal Computer](https://en.wikipedia.org/wiki/PC)**.
+
+(w) This guide **assumes** the **colloquial defintion** of a **PC** which doesn't include all personal computers.
+
 
 The **PC** is a **standard type of computer**. PCs **usually use** components which are **compatible** with **other PCs** (with **limitations**). For example, if you had **two PCs** you **may be able** to **swap some of their parts** and still have **both work**.
 
