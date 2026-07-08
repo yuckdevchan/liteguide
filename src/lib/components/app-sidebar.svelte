@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import SearchForm from './search-form.svelte';
 	import SidebarTree from './sidebar-tree.svelte';
 	import CommandPalette from './command-palette.svelte';
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
@@ -106,49 +105,48 @@
 					{/snippet}
 				</Sidebar.MenuButton>
 			</Sidebar.MenuItem>
+
+			<Sidebar.MenuItem>
+				<Sidebar.MenuButton size="default" onclick={() => (commandPaletteOpen = true)}>
+					{#snippet child({ props })}
+						<button {...props}>
+							<SearchIcon class="size-4 mr-2 text-white!" />
+							<span class="text-white!">Search</span>
+							<kbd
+								class="pointer-events-none ml-auto inline-flex h-5 select-none items-center gap-1 rounded border border-white/20 px-1.5 font-mono text-[10px] font-medium text-white/60"
+							>
+								ctrl+k
+							</kbd>
+						</button>
+					{/snippet}
+				</Sidebar.MenuButton>
+			</Sidebar.MenuItem>
+
+			<Sidebar.MenuItem>
+				<Sidebar.MenuButton size="default">
+					{#snippet child({ props })}
+						<a
+							href="https://github.com/yuckdevchan/learncomputers"
+							target="_blank"
+							rel="noreferrer"
+							{...props}
+						>
+							<GithubIcon class="size-4 mr-2 text-white!" />
+							<span class="text-white!">Source Code</span>
+						</a>
+					{/snippet}
+				</Sidebar.MenuButton>
+			</Sidebar.MenuItem>
 		</Sidebar.Menu>
-		<SearchForm />
 	</Sidebar.Header>
-	<Sidebar.Content class="flex flex-col justify-between">
-		<Sidebar.Group>
+	<Sidebar.Content class="flex flex-col overflow-hidden">
+		<Sidebar.Group class="relative flex-1 overflow-y-auto">
 			<Sidebar.Menu>
 				<SidebarTree nodes={structure} {activePath} />
 			</Sidebar.Menu>
-		</Sidebar.Group>
-
-		<Sidebar.Group class="mt-auto">
-			<Sidebar.Menu>
-				<Sidebar.MenuItem>
-					<Sidebar.MenuButton size="default" onclick={() => (commandPaletteOpen = true)}>
-						{#snippet child({ props })}
-							<button {...props}>
-								<SearchIcon class="size-4 mr-2 text-white!" />
-								<span class="text-white!">Search</span>
-								<kbd
-									class="pointer-events-none ml-auto inline-flex h-5 select-none items-center gap-1 rounded border border-white/20 px-1.5 font-mono text-[10px] font-medium text-white/60"
-								>
-									ctrl+k
-								</kbd>
-							</button>
-						{/snippet}
-					</Sidebar.MenuButton>
-				</Sidebar.MenuItem>
-				<Sidebar.MenuItem>
-					<Sidebar.MenuButton size="default">
-						{#snippet child({ props })}
-							<a
-								href="https://github.com/yuckdevchan/learncomputers"
-								target="_blank"
-								rel="noreferrer"
-								{...props}
-							>
-								<GithubIcon class="size-4 mr-2 text-white!" />
-								<span class="text-white!">Source Code</span>
-							</a>
-						{/snippet}
-					</Sidebar.MenuButton>
-				</Sidebar.MenuItem>
-			</Sidebar.Menu>
+			<div
+				class="pointer-events-none sticky bottom-0 h-6 bg-gradient-to-t from-sidebar to-transparent"
+			/>
 		</Sidebar.Group>
 	</Sidebar.Content>
 	<Sidebar.Rail />

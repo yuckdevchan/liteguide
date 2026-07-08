@@ -1,15 +1,7 @@
 <script lang="ts" module>
 	const STORAGE_KEY = 'sidebar-open-states';
 
-	const RAINBOW = [
-		'hsl(0, 80%, 55%)',
-		'hsl(30, 90%, 50%)',
-		'hsl(55, 90%, 45%)',
-		'hsl(120, 70%, 45%)',
-		'hsl(210, 80%, 55%)',
-		'hsl(250, 75%, 55%)',
-		'hsl(290, 65%, 55%)',
-	];
+	const RAINBOW = ['#22C55E', '#3B82F6', '#A855F7', '#EF4444', '#F97316', '#EAB308', '#7DD3FC'];
 </script>
 
 <script lang="ts">
@@ -84,13 +76,9 @@
 		<Collapsible.Content>
 			<Sidebar.MenuSub
 				class={'border-l-[3px]' + (depth > 0 ? ' ps-3' : '')}
-				style="--sidebar-border: {RAINBOW[(depth + 1) % RAINBOW.length]}"
+				style="--sidebar-border: {RAINBOW[depth % RAINBOW.length]}"
 			>
-				<SidebarTree
-					nodes={node.children!}
-					depth={depth + 1}
-					{activePath}
-				/>
+				<SidebarTree nodes={node.children!} depth={depth + 1} {activePath} />
 			</Sidebar.MenuSub>
 		</Collapsible.Content>
 	</Sidebar.MenuItem>

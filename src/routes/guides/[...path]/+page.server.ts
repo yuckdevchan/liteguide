@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit';
-import { getGuideContent, getGuideStructure, getGuideRealPath } from '$lib/server/guides';
+import { getGuideContent, getGuideStructure, getGuideRealPath, type GuideNode } from '$lib/server/guides';
 import { marked } from 'marked';
 
 const GITHUB_EDIT_BASE = 'https://github.com/yuckdevchan/learncomputers/edit/main/guides';
@@ -78,12 +78,28 @@ export async function load({ params }) {
 	const realPath = getGuideRealPath(path);
 	const sourceUrl = `${GITHUB_EDIT_BASE}/${realPath || path}.md`;
 
+	const pathTitleMap = new Map<string, string>();
+	function walk(nodes: GuideNode[]) {
+		for (const node of nodes) {
+			pathTitleMap.set(node.path, node.title);
+			if (node.children) walk(node.children);
+		}
+	}
+	walk(structure);
+
+	const parts = path.split('/');
+	const breadcrumbs = parts.map((_, i) => {
+		const segmentPath = parts.slice(0, i + 1).join('/');
+		return pathTitleMap.get(segmentPath) || segmentPath;
+	});
+
 	return {
 		html,
 		title,
 		path,
 		structure,
 		headings,
-		sourceUrl
+		sourceUrl,
+		breadcrumbs
 	};
 }

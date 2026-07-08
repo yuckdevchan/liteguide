@@ -6,6 +6,7 @@
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import Pencil from '@lucide/svelte/icons/pencil';
+	import Copy from '@lucide/svelte/icons/copy';
 
 	let { data } = $props();
 </script>
@@ -23,11 +24,11 @@
 			<Breadcrumb.Root>
 				<Breadcrumb.List>
 					{@const parts = data.path.split('/')}
-					{#each parts as part, i}
+					{#each data.breadcrumbs as crumb, i}
 						{#if i > 0}<Breadcrumb.Separator class="hidden md:block" />{/if}
 						<Breadcrumb.Item>
 							{#if i < parts.length - 1}
-								{part.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())}
+								{crumb}
 							{:else}
 								<Breadcrumb.Page>{data.title}</Breadcrumb.Page>
 							{/if}
@@ -42,13 +43,23 @@
 					<h1 class="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
 						{data.title}
 					</h1>
-					<Button variant="outline" class="rounded-full"
-						><Pencil class="h-4 w-4" />edit this page</Button
-					>
+					<div class="flex gap-3 items-center">
+						<Button variant="ghost" class="rounded-full">
+							<Copy class="h-4 w-4" />
+						</Button>
+						<Button variant="outline" class="rounded-full" href={data.sourceUrl} target="_blank"
+							><Pencil class="h-4 w-4" />edit this page</Button
+						>
+					</div>
 				</div>
 				<div class="prose prose-lg dark:prose-invert">
 					{@html data.html}
 				</div>
+				<span class="text-zinc-600 font-bold"
+					><a href="https://github.com/yuckdevchan/learncomputers/blob/main/LICENSE"
+						>License: GPLv3</a
+					></span
+				>
 			</div>
 			{#if data.headings.length > 0}
 				<TableOfContents headings={data.headings} />
