@@ -2,7 +2,7 @@ import { error } from '@sveltejs/kit';
 import { getGuideContent, getGuideStructure, getGuideRealPath, type GuideNode } from '$lib/server/guides';
 import { marked } from 'marked';
 
-const GITHUB_EDIT_BASE = 'https://github.com/yuckdevchan/learncomputers/edit/main/guides';
+const GITHUB_EDIT_BASE = 'https://github.com/yuckdevchan/liteguide/edit/main/guides';
 
 interface Heading {
 	id: string;

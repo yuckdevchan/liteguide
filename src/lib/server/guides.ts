@@ -1,10 +1,8 @@
-import { readdirSync, readFileSync, existsSync } from 'fs';
-import { join } from 'path';
-import { fileURLToPath } from 'url';
-import { dirname, resolve } from 'path';
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const guidesDir = resolve(__dirname, '../../../guides');
+const guideFiles = import.meta.glob('/guides/**/*.md', {
+	eager: true,
+	import: 'default',
+	query: '?raw'
+}) as Record<string, string>;
 
 export interface GuideNode {
 	title: string;
@@ -14,6 +12,8 @@ export interface GuideNode {
 }
 
 const pathMap = new Map<string, string>();
+const contentMap = new Map<string, string>();
+let cachedStructure: GuideNode[] | null = null;
 
 function slugify(name: string): string {
 	return name
@@ -42,83 +42,151 @@ type NodeKind = 'article' | 'category';
 
 type RawNode = GuideNode & { order?: number | null; kind: NodeKind };
 
+interface TreeEntry {
+	actualName: string;
+	cleanName: string;
+	slug: string;
+	cleanPath: string;
+	realPath: string;
+	order: number | null;
+	directories: Map<string, TreeEntry>;
+	files: RawNode[];
+}
+
 function stripOrder(n: RawNode): GuideNode {
 	const { order: _, kind: __, ...rest } = n;
 	return rest;
 }
 
-function readTree(dir: string, cleanBase: string, realBase: string): RawNode[] {
-	const entries = readdirSync(dir, { withFileTypes: true });
-	const rawNodes: RawNode[] = [];
+function titleFromFolderName(name: string): string {
+	return name.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+}
 
-	for (const entry of entries) {
-		if (!entry.isDirectory()) continue;
-		const orderMatch = entry.name.match(/^(\d+)\.\s+(.*)$/);
-		const order = orderMatch ? parseInt(orderMatch[1], 10) : null;
-		const cleanName = orderMatch ? orderMatch[2] : entry.name;
-		const slugged = slugify(cleanName);
-		const cleanPath = cleanBase ? `${cleanBase}/${slugged}` : slugged;
-		const realPath = realBase ? `${realBase}/${entry.name}` : entry.name;
-		pathMap.set(cleanPath, realPath);
-		const children = readTree(join(dir, entry.name), cleanPath, realPath);
-		if (children.length > 0) {
-			rawNodes.push({
-				title: cleanName.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()),
-				slug: slugged,
-				path: cleanPath,
-				order,
-				kind: 'category',
-				children: children.map(stripOrder)
-			});
+function createDirectoryNode(actualName: string, cleanBase: string, realBase: string): TreeEntry {
+	const orderMatch = actualName.match(/^(\d+)\.\s+(.*)$/);
+	const order = orderMatch ? parseInt(orderMatch[1], 10) : null;
+	const cleanName = orderMatch ? orderMatch[2] : actualName;
+	const slug = slugify(cleanName);
+	const cleanPath = cleanBase ? `${cleanBase}/${slug}` : slug;
+	const realPath = realBase ? `${realBase}/${actualName}` : actualName;
+	pathMap.set(cleanPath, realPath);
+
+	return {
+		actualName,
+		cleanName,
+		slug,
+		cleanPath,
+		realPath,
+		order,
+		directories: new Map(),
+		files: []
+	};
+}
+
+function sortNodes(a: RawNode, b: RawNode): number {
+	if (a.kind !== b.kind) return a.kind === 'article' ? -1 : 1;
+	if (a.order != null && b.order != null) return a.order - b.order;
+	if (a.order != null) return -1;
+	if (b.order != null) return 1;
+	return a.title.toLowerCase().localeCompare(b.title.toLowerCase());
+}
+
+function buildNode(entry: TreeEntry): RawNode {
+	const children: RawNode[] = [];
+
+	for (const directory of entry.directories.values()) {
+		const child = buildNode(directory);
+		if (child.children && child.children.length > 0) {
+			children.push(child);
 		}
 	}
 
-	for (const entry of entries) {
-		if (!entry.isFile() || !entry.name.endsWith('.md')) continue;
-		const content = readFileSync(join(dir, entry.name), 'utf-8');
-		const slug = slugify(entry.name);
+	children.push(...entry.files);
+	children.sort(sortNodes);
+
+	return {
+		title: titleFromFolderName(entry.cleanName),
+		slug: entry.slug,
+		path: entry.cleanPath,
+		order: entry.order,
+		kind: 'category',
+		children: children.map(stripOrder)
+	};
+}
+
+function buildGuideIndex(): GuideNode[] {
+	if (cachedStructure) return cachedStructure;
+
+	pathMap.clear();
+	contentMap.clear();
+
+	const root: TreeEntry = {
+		actualName: '',
+		cleanName: '',
+		slug: '',
+		cleanPath: '',
+		realPath: '',
+		order: null,
+		directories: new Map(),
+		files: []
+	};
+
+	for (const [filePath, content] of Object.entries(guideFiles)) {
+		const relativePath = filePath.replace(/^\/guides\//, '');
+		const segments = relativePath.split('/');
+		const fileName = segments.pop();
+
+		if (!fileName) continue;
+
+		let current = root;
+		let cleanBase = '';
+		let realBase = '';
+
+		for (const segment of segments) {
+			let directory = current.directories.get(segment);
+			if (!directory) {
+				directory = createDirectoryNode(segment, cleanBase, realBase);
+				current.directories.set(segment, directory);
+			}
+			current = directory;
+			cleanBase = current.cleanPath;
+			realBase = current.realPath;
+		}
+
+		const slug = slugify(fileName);
 		const cleanPath = cleanBase ? `${cleanBase}/${slug}` : slug;
-		const realPath = realBase ? `${realBase}/${slugify(entry.name)}` : slugify(entry.name);
-		pathMap.set(cleanPath, realPath);
-		rawNodes.push({
+		const realPath = realBase ? `${realBase}/${fileName}` : fileName;
+		const article: RawNode = {
 			title: titleFromContent(content, slug),
 			slug,
 			path: cleanPath,
 			order: sortOrderFromContent(content),
 			kind: 'article'
-		});
+		};
+
+		pathMap.set(cleanPath, realPath);
+		contentMap.set(cleanPath, content);
+		current.files.push(article);
 	}
 
-	rawNodes.sort((a, b) => {
-		if (a.kind !== b.kind) return a.kind === 'article' ? -1 : 1;
-		if (a.order != null && b.order != null) return a.order - b.order;
-		if (a.order != null) return -1;
-		if (b.order != null) return 1;
-		return a.title.toLowerCase().localeCompare(b.title.toLowerCase());
-	});
+	cachedStructure = Array.from(root.directories.values())
+		.map((directory) => buildNode(directory))
+		.filter((node) => node.children && node.children.length > 0)
+		.map(stripOrder);
 
-	return rawNodes;
+	return cachedStructure;
 }
 
 export function getGuideStructure(): GuideNode[] {
-	if (!existsSync(guidesDir)) return [];
-	pathMap.clear();
-	return readTree(guidesDir, '', '').map(stripOrder);
+	return buildGuideIndex();
 }
 
 export function getGuideContent(relativePath: string): string | null {
-	if (pathMap.size === 0) {
-		getGuideStructure();
-	}
-	const realPath = pathMap.get(relativePath) || relativePath;
-	const filePath = join(guidesDir, `${realPath}.md`);
-	if (existsSync(filePath)) return readFileSync(filePath, 'utf-8');
-	return null;
+	buildGuideIndex();
+	return contentMap.get(relativePath) || null;
 }
 
 export function getGuideRealPath(relativePath: string): string | null {
-	if (pathMap.size === 0) {
-		getGuideStructure();
-	}
+	buildGuideIndex();
 	return pathMap.get(relativePath) || null;
 }

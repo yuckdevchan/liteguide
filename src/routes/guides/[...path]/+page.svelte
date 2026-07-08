@@ -12,7 +12,7 @@
 </script>
 
 <svelte:head>
-	<title>{data.title} - learn computers</title>
+	<title>{data.title} - liteguide</title>
 </svelte:head>
 
 <Sidebar.Provider>
@@ -56,7 +56,7 @@
 					{@html data.html}
 				</div>
 				<span class="text-zinc-600 font-bold"
-					><a href="https://github.com/yuckdevchan/learncomputers/blob/main/LICENSE"
+					><a href="https://github.com/yuckdevchan/liteguide/blob/main/LICENSE"
 						>License: GPLv3</a
 					></span
 				>

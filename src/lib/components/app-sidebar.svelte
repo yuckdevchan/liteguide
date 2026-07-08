@@ -99,7 +99,7 @@
 					{#snippet child({ props })}
 						<a href="/" {...props}>
 							<div class="flex flex-col gap-0.5 leading-none">
-								<span class="text-lg font-bold font-mono text-white">learn computers</span>
+								<span class="text-lg font-bold font-mono text-white">liteguide</span>
 							</div>
 						</a>
 					{/snippet}
@@ -126,7 +126,7 @@
 				<Sidebar.MenuButton size="default">
 					{#snippet child({ props })}
 						<a
-							href="https://github.com/yuckdevchan/learncomputers"
+							href="https://github.com/yuckdevchan/liteguide"
 							target="_blank"
 							rel="noreferrer"
 							{...props}
