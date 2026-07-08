@@ -8,7 +8,7 @@ There is no single operating system called 'Linux'. Instead, there are many [dis
 ## Packages
 On Linux, software applications or programs are called packages. They can be installed using a package manager.
 
-(i) Using a package manager to download form a repository (or repo) is like using an app store.
+(e) Using a package manager to download form a repository (or repo) is like using an app store.
 
 A package manager can be [CLI](cli) or [GUI](gui), or both.
 

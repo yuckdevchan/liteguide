@@ -183,7 +183,7 @@ function resolveGuideHref(href: string, entries: GuideReferenceEntry[]): string 
 		return `${partialMatches[0].routeHref}${suffix}`;
 	}
 
-	return href;
+	return `https://en.wikipedia.org/wiki/${normalized.replace(/_/g, '-')}${suffix}`;
 }
 
 export async function load({ params }) {
@@ -211,6 +211,9 @@ export async function load({ params }) {
 		const resolvedHref = resolveGuideHref(href, guideReferenceEntries);
 		const renderedText = renderer.parser.parseInline(tokens);
 		let html = `<a href="${escapeHtmlAttribute(resolvedHref)}"`;
+		if (resolvedHref.startsWith('http')) {
+			html += ` target="_blank" rel="noreferrer"`;
+		}
 		if (title) {
 			html += ` title="${escapeHtmlAttribute(title)}"`;
 		}

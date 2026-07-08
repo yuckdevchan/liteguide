@@ -1,5 +1,5 @@
 0
-# Home
+# Intro
 **liteguide** is a site for **quickly** learning about **computers** via **concise explanations**,
 with opportunities to **explore further**.
 
@@ -14,7 +14,9 @@ This website was **written** by a **human**.
 
 <span class="underline text-orange-500"><b>Orange links</b> lead to <b>other</b> websites.</span>
 
-(i) Info icons mean a comparison, analogy, or point or reference is being used to explain
+(i) Info icons mean an analogy or point or reference is being used to explain
+
+(e) Light bulb icons indicates a side-tangent or extra information
 
 (w) Warning icons means there's a common point of confusion
 

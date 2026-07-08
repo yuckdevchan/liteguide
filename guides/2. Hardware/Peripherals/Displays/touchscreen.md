@@ -1,4 +1,4 @@
-# Touchscreens
+# Touchscreen
 [Touchscreens](https://en.wikipedia.org/wiki/Touchscreen) are display devices that can detect being touched and it sends this data to it host computer.
 
 ## Capactive

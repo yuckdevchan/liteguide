@@ -14,14 +14,14 @@ Almost all **laptops** which use [Windows](microsoft-windows) or [Linux](https:/
 
 ## Parts
 PCs **usually** consist of the following parts **separately**, but some PCs have some of these **parts merged together**:
-- Case / Chassis
+- **Case / Chassis**
 - [Motherboard](motherboard)
 - [CPU](https://en.wikipedia.org/wiki/Central_processing_unit)
 - [RAM](https://en.wikipedia.org/wiki/Random-access_memory) \*\*
 - [Storage](https://en.wikipedia.org/wiki/Data_storage) - [Hard Drive (HDD)](https://en.wikipedia.org/wiki/Hard_disk_drive) or [Solid State Drive (SSD)](https://en.wikipedia.org/wiki/Solid-state_drive)
-- Network Interface Controller (NIC) \* \*\*
-- Graphics Processing Unit \* \*\*
-- Sound Card \* \*\*
+- [**Network Interface Controller (NIC)**](nic) \* \*\*
+- [**Graphics Processing Unit**](gpu) \* \*\*
+- [**Sound Card**](sound-card) \* \*\*
 
 \* commonly built into **motherboard**
 

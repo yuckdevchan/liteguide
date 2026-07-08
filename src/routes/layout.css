@@ -129,6 +129,33 @@
 	}
 }
 
+.prose {
+	max-width: 100%;
+
+	table {
+		display: block;
+		overflow-x: auto;
+		max-width: 100%;
+		white-space: nowrap;
+		-webkit-overflow-scrolling: touch;
+	}
+
+	pre {
+		overflow-x: auto;
+		max-width: 100%;
+		-webkit-overflow-scrolling: touch;
+	}
+
+	img {
+		max-width: 100%;
+		height: auto;
+	}
+
+	code {
+		word-break: break-word;
+	}
+}
+
 a {
 	color: var(--accent) !important;
 
