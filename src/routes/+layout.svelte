@@ -20,7 +20,7 @@
 	<meta property="og:url" content="https://liteguide.vercel.app/" />
 	<meta property="og:title" content="liteguide" />
 	<meta property="og:description" content="LEARN EVERYTHING ABT COMPUTERS SUPER FAST + FUN" />
-	<meta property="og:image" content="/banner.png" />
+	<meta property="og:image" content="/banner.webp" />
 
 	<meta property="twitter:card" content="summary_large_image" />
 	<meta property="twitter:url" content="https://liteguide.vercel.app/" />
