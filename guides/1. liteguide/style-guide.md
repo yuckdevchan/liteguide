@@ -7,9 +7,15 @@ This **page** is **intended** for **potential contributors** to <span class="fon
 
 To make **info**, **warning**, or **extra information** boxes, use a w in **brackets** for **warning**, an i in **brackets** for **info** and an e in **brackets** for **extra information**. This **needs** to go at the **start of a paragraph**. **Newlines** are **allowed** in these **boxes** and can be done by **inserting** an **HTML break tag**: `<br>`.
 
+## Boxes
+(e) **Extra information boxes** are used for **side-tangents**, **fun-facts** and **extra information** which isn't **strictly necessary**.
+
 (w) **Warning boxes** are **most commonly** used to **address naming controversies**, and **common confusions**.
 
-(e) **Extra information boxes** are used for **side-tangents**, **fun-facts** and **extra information** which isn't **strictly necessary**.
+(i) **Info boxes** are used when a comparison, analogy, or point of reference is used to explain a topic.
+
+### Example Usage
+(e) **Computers** don't have to be **electronic**, they can be **mechanical**, **hydraulic**, or even **biological**. There is a **popular thought experiment** called [China Brain](china-brain).
 
 ## Special Markdown Syntax
 ## Links
@@ -21,10 +27,12 @@ Then it will **automatically search** for **any guide** in the **tree structure*
 
 It **works** like this so if **an article** doesn't exist then it **links to wikipedia**, but if it is **created at some point**, it can **link to this site**.
 
+**Links** should **not** be **bolded** or *italicized*.
+
 ## Sort order
 **Sort order** is **optional**.
 
-If som**e categories** in a **parent category** hav**e a sort or**der, then they will be **sorted first**, then the **rest of the categories** will be **sorted alphabetically** below them.
+If some **categories** in a **parent category** have **a sort order**, then they will be **sorted first**, then the **rest of the categories** will be **sorted alphabetically** below them.
 
 **Sort order** is used by **numbering categories**. See **below**.
 
