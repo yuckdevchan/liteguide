@@ -14,11 +14,11 @@ Then it will **automatically search** for **any guide** in the **tree structure*
 It **works** like this so if **an article** doesn't exist then it **links to wikipedia**, but if it is **created at some point**, it can **link to this site**.
 
 ## Sort order
-Sort order is optional.
+**Sort order** is **optional**.
 
-If some categories in a parent category have a sort order, then they will be sorted first, then the rest of the categories will be sorted alphabetically below them.
+If som**e categories** in a **parent category** hav**e a sort or**der, then they will be **sorted first**, then the **rest of the categories** will be **sorted alphabetically** below them.
 
-Sort order is used by numbering categories. See below.
+**Sort order** is used by **numbering categories**. See **below**.
 
 e.g.
 1. liteguide
@@ -26,9 +26,9 @@ e.g.
 3. Software
 Ethics, Law & Activism
 
-The last one doesn't need a sort order to be at the end, because all the other ones have a sort order.
+The **last one** doesn't **need** a **sort order** to be at **the end**, because **all the other ones** have a **sort order**.
 
-Guides themselves can also have a sort order by having the first line in the markdown file be just an integer number.
+**Guides themselves** can also have a **sort order** by having the **first line** in the **markdown file** be just **an integer number**.
 
 e.g.
 ```markdown
