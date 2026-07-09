@@ -16,8 +16,11 @@ An **HDD** is a **data storage device** which stores **digital information** (al
 - **More prone to failure** due to **moving parts**.
 - **Less durable** than [SSDs](ssd) because of **moving parts**
 - **Less suitable** for [mobile devices](mobile) due to **moving parts**.
+- **Higher power consumption** than [SSDs](ssd) due to **moving parts**.
 
 ## How it works
+(e) Because **HDDs** are **magnetic storage**, if you **touch a magnet** to the **platter**, it will **erase the data** stored on the **disk**.
+
 A **hard drive** consists of **one or more platters** that are **coated** with a **magnetic material**. **Data is stored** on these **platters** in the form of **tiny magnetic regions**, which can be **magnetized** in **different directions** to represent **binary data** (0s and 1s).
 
 The **data** is **read** from the **platters** using a **read/write head** that **hovers above** the **surface** of the **platters**. 
@@ -25,5 +28,3 @@ The **data** is **read** from the **platters** using a **read/write head** that 
 The **platters spin** at **high speeds**, allowing the **read/write head** to access **different parts** of the disk **quickly**.
 
 The **read/write** head can also **write data** by **changing** the **magnetic orientation** of the **regions** on the **platters**.
-
-(e) Because **HDDs** are **magnetic storage**, if you **touch a magnet** to the **platter**, it will **erase the data** stored on the **disk**.
