@@ -9,6 +9,7 @@ An **HDD** is a **data storage device** which stores **digital information** (al
 
 ## Pros
 - **Costs less** per giga[byte](byte) **than other** [SSDs](ssd) and [optical media](optical-media) **storage**.
+- **Higher maximum storage capacity** than [SSDs](ssd) and [optical media](optical-media).
 
 ## Cons
 - **Slower** than [SSDs](ssd) due to **mechanical parts**.
