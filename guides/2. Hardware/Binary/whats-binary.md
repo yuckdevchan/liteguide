@@ -1,7 +1,7 @@
 # What's Binary
 [Binary](binary) is a **number system** that uses only **two digits**: 0 and 1. Each digit in binary is called a bit.
 
-Denary (also called decimal) is the **number system** you are more familiar with. It is *base 10**.
+Denary (also called decimal) is the [number system](number) you are more familiar with. It is *base 10**.
 
 Binary is **base 2**.
 
@@ -63,3 +63,7 @@ ______
   0110
 ______
 ```
+
+Not too difficult. But wait, we carried a one at the end but there wasn't space for it, because we only had 4 bits. This is called an **overflow** error.
+
+This error can happen in the other direction too, in that case it's called an **underflow** error.
