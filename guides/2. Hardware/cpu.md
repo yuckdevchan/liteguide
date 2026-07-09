@@ -21,7 +21,7 @@ Each **instruction** is **made up of**:
 ## Architectures
 The **specific way** that a **CPU** works and the **instructions** available to it are determined by its **architecture**
 
-**Programs** [compiled](compilers) for **one architecture**, won't run on **another architecture**.
+**Programs** [compiled](compiler) for **one architecture**, won't run on **another architecture**.
 
 Common **architectures** include:
 - **ARM64** (aarch64) (Used for most [smartphones](smartphones), many mobile or [embedded devices](embedded), and some laptops)
